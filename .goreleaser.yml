@@ -1,0 +1,31 @@
+builds:
+  - binary: too-doo
+    goos:
+      - darwin
+      - linux
+    goarch:
+      - amd64
+      - arm64
+    env:
+      - CGO_ENABLED=0
+    flags:
+      - -mod=vendor
+
+release:
+  prerelease: auto
+
+universal_binaries:
+  - replace: true
+
+brews:
+  - name: too-doo
+    homepage: https://github.com/adityanagar10/too-doo
+    tap:
+      owner: adityanagar10
+      name: homebrew-adityanagar10
+    commit_author:
+      name: adityanagar10
+      email: dev.adityanagar@gmail.com
+
+checksum:
+  name_template: "checksums.txt"
