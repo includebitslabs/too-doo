@@ -7,51 +7,41 @@ import (
 	"fmt"
 	"os"
 
+	todo "github.com/adityanagar10/too-doo/utils"
 	"github.com/spf13/cobra"
 )
 
-// rootCmd represents the base command when called without any subcommands
-var rootCmd = &cobra.Command{
-	Use:   "too-doo",
-	Short: "A brief description of your application",
-	Long: `A longer description that spans multiple lines and likely contains
-examples and usage of using your application. For example:
+const (
+  todoFile = ".todos.json"
+)
 
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+
+
+var RootCmd = &cobra.Command{
+	Use:   "too-doo",
+	Short: "Manage your to-do list from the command line",
+	Long:  `Too-Doo is a command-line application for managing your to-do list efficiently. With Too-Doo, you can add, delete, complete, and view tasks directly from your terminal, making it easy to stay organized and productive. This tool is built using Cobra, a CLI library for Go, and offers a seamless experience for managing your tasks with ease. Use Too-Doo to streamline your task management process and stay on top of your daily agenda.`,	
 Run: func(cmd *cobra.Command, args []string) {
-	flagVal, err := cmd.Flags().GetBool("toggle")
-	if err != nil {
-		return
+	todos := &todo.Todos{}
+	
+	if err := todos.Load(todoFile); err != nil {
+	fmt.Fprintln(os.Stderr, err.Error())
+	os.Exit(1)
 	}
-	if flagVal{
-		fmt.Printf("Hello, this command works")
-		return
-	}
-	fmt.Println("Hello")
+	
+	todos.List()
 },
 }
 
-// Execute adds all child commands to the root command and sets flags appropriately.
-// This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
-	err := rootCmd.Execute()
+	err := RootCmd.Execute()
 	if err != nil {
 		os.Exit(1)
 	}
 }
 
 func init() {
-	// Here you will define your flags and configuration settings.
-	// Cobra supports persistent flags, which, if defined here,
-	// will be global for your application.
-
-	// rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.too-doo.yaml)")
-
-	// Cobra also supports local flags, which will only run
-	// when this action is called directly.
-	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	RootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
 
 
