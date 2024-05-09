@@ -13,13 +13,9 @@ import (
 	"github.com/spf13/cobra"
 )
 
-const (
-  todoFile = ".todos.json"
-)
-
 func DeleteCmd() *cobra.Command {
 	todos := &todo.Todos{}
-	if err := todos.Load(todoFile); err != nil {
+	if err := todos.Load(todo.FILENAME); err != nil {
     fmt.Fprintln(os.Stderr, err.Error())
     os.Exit(1)
   }
@@ -36,9 +32,8 @@ func DeleteCmd() *cobra.Command {
 				os.Exit(1)
 			}
 			input = taskID 
-			fmt.Printf("%d", input)
 			todos.Delete(input)
-			err = todos.Store(todoFile)
+			err = todos.Store(todo.FILENAME)
 			if err != nil {
 				fmt.Fprintln(os.Stderr, "Error:", err)
 				os.Exit(1)

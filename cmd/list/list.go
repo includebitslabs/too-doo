@@ -12,13 +12,9 @@ import (
 	"github.com/spf13/cobra"
 )
 
-const (
-  todoFile = ".todos.json"
-)
-
 func ListCmd() *cobra.Command {
 	todos := &todo.Todos{}
-	if err := todos.Load(todoFile); err != nil {
+	if err := todos.Load(todo.FILENAME); err != nil {
     fmt.Fprintln(os.Stderr, err.Error())
     os.Exit(1)
   }

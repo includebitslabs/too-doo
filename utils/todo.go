@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"path/filepath"
 	"time"
 
 	"github.com/alexeyco/simpletable"
@@ -58,7 +59,13 @@ func (t *Todos) Delete(index int) error {
 }
 
 func (t *Todos) Load(filename string) error {
-  file, err := ioutil.ReadFile(filename)
+  homeDir, err := os.UserHomeDir()
+	if err != nil {
+		return err
+	}
+  filepath := filepath.Join(homeDir, filename)
+
+  file, err := ioutil.ReadFile(filepath)
   if err != nil {
     if errors.Is(err, os.ErrNotExist) {
       return nil
@@ -83,7 +90,14 @@ func (t *Todos) Store(filename string) error {
     return err
   }
 
-  return ioutil.WriteFile(filename, data, 0644)
+  homeDir, err := os.UserHomeDir()
+	if err != nil {
+		return err
+	}
+
+  filepath := filepath.Join(homeDir, filename)
+
+  return ioutil.WriteFile(filepath, data, 0644)
 }
 
 func (t *Todos) List() {

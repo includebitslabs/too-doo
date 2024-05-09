@@ -12,10 +12,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-const (
-  todoFile = ".todos.json"
-)
-
 func AddCmd() *cobra.Command {
 	todos := &todo.Todos{}
 	var input string
@@ -27,7 +23,7 @@ func AddCmd() *cobra.Command {
 		Run: func(cmd *cobra.Command, args []string) {
 			input = args[0]
 			todos.Add(input)
-			err := todos.Store(todoFile)
+			err := todos.Store(todo.FILENAME)
 			if err != nil {
 				fmt.Fprintln(os.Stderr, err.Error())
 				os.Exit(1)

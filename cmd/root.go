@@ -11,12 +11,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-const (
-  todoFile = ".todos.json"
-)
-
-
-
 var RootCmd = &cobra.Command{
 	Use:   "too-doo",
 	Short: "Manage your to-do list from the command line",
@@ -24,7 +18,7 @@ var RootCmd = &cobra.Command{
 Run: func(cmd *cobra.Command, args []string) {
 	todos := &todo.Todos{}
 	
-	if err := todos.Load(todoFile); err != nil {
+	if err := todos.Load(todo.FILENAME); err != nil {
 	fmt.Fprintln(os.Stderr, err.Error())
 	os.Exit(1)
 	}
