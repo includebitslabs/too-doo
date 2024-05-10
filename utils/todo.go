@@ -29,7 +29,6 @@ func (t *Todos) Add(task string) {
     CreatedAt: time.Now(),
     CompletedAt: time.Time{},
   }
-
   *t = append(*t, todo)
 }
 

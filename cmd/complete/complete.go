@@ -1,5 +1,5 @@
 /*
-Copyright © 2024 NAME HERE <EMAIL ADDRESS>
+Copyright © 2024 Aditya <includebitslabs@gmail.com>
 */
 package complete
 
@@ -38,6 +38,7 @@ func CompleteCmd() *cobra.Command {
 				fmt.Fprintln(os.Stderr, "Error:", err)
 				os.Exit(1)
 			}
+			todos.List()
 		},
 	}
 	return c

@@ -1,5 +1,5 @@
 /*
-Copyright © 2024 NAME HERE <EMAIL ADDRESS>
+Copyright © 2024 Aditya <includebitslabs@gmail.comS>
 */
 package add
 
@@ -14,6 +14,10 @@ import (
 
 func AddCmd() *cobra.Command {
 	todos := &todo.Todos{}
+	if err := todos.Load(todo.FILENAME); err != nil {
+    fmt.Fprintln(os.Stderr, err.Error())
+    os.Exit(1)
+  }
 	var input string
 	c := &cobra.Command{
 		Use:   "add [message]",
@@ -28,7 +32,7 @@ func AddCmd() *cobra.Command {
 				fmt.Fprintln(os.Stderr, err.Error())
 				os.Exit(1)
 			}
-
+			todos.List()
 		},
 	}
 	return c
