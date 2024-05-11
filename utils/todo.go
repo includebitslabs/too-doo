@@ -38,8 +38,6 @@ func (t *Todos) Complete(index int) error {
     return errors.New("incorrect index")
   }
 
-  log.Println(ls)
-
   ls[index - 1].CompletedAt = time.Now()
   ls[index - 1].Done = true
 
